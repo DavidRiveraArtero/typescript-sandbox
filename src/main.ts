@@ -1,51 +1,77 @@
 import "./style.css";
 
-// BOTONES
-const buttonSiguiente = document.getElementById("siguiente") as HTMLElement
-const buttonAnterior = document.getElementById("anterior") as HTMLElement
-const buttonReset = document.getElementById("reset") as HTMLElement
+let turno = 0;
 
-// INPUT
-let turnoNumber = document.getElementById("turno_number") as HTMLInputElement
-const buttonEnviar = document.getElementById("enviar") as HTMLElement
+const turnoSiguiente = () => {
+  turno++;
+  pintarTurno();
+};
 
-// TEXT
-let turn = document.getElementsByClassName("numero-turno")[0] as Element
+const turnoAnterior = () => {
+  if (turno > 0) {
+    turno--;
+    pintarTurno();
+  }
+};
 
+const resetearTurno = () => {
+  turno = 0;
+  pintarTurno();
+};
 
-function SiguienteTurno(turn:Element):void{
-    let number = parseInt(turn.innerHTML)
-    turn.innerHTML = String(number + 1).padStart(2, "0")
+const turnoManual = () => {
+  let turnoNumber = document.getElementById("turno_number") as HTMLInputElement;
+  let finalTurn:number = parseInt(turnoNumber.value)
+
+  if(turnoNumber !== undefined && turnoNumber !== null ){
+    if(finalTurn > 0){
+      turno = finalTurn
+    }else {
+      console.error("Turno tiene que ser mayor a 0 ")
+    }
+    pintarTurno()
+  }
 }
 
-function AnteriorTurno(turn:Element):void{
-    let number = parseInt(turn.innerHTML)
-    turn.innerHTML = String(number - 1).padStart(2, "0")
-}
+const pintarTurno = () => {
+  const numero = document.getElementById("numero-turno");
+  if (numero !== undefined && numero !== null) {
+    numero.innerHTML = turno.toString().padStart(2, "0");
+  }
+};
 
-function ResetTurno(turn:Element):void{
-   turn.innerHTML = "0"; 
-}
 
-function TurnoManual(turn:Element, turnoNumber:HTMLInputElement){
-    turn.innerHTML = turnoNumber.value.padStart(2, "0")
-}
+// EVENTOS BUTTON
+const eventos = () => {
 
-// EVENTOS BUTTON 
+  // BOTON SIGUIENTE
+  const buttonSiguiente = document.getElementById("siguiente");
+  if (buttonSiguiente !== undefined && buttonSiguiente !== null) {
+    buttonSiguiente.addEventListener("click", () => {
+      turnoSiguiente()
+    });
+  }
 
-buttonSiguiente.addEventListener("click", () => {
-    SiguienteTurno(turn)
-})
+  // BOTON ANTERIOR
+  const buttonAnterior = document.getElementById("anterior");
+  if(buttonAnterior !== undefined && buttonAnterior !== null){
+    buttonAnterior.addEventListener("click", turnoAnterior);
+  }
 
-buttonAnterior.addEventListener("click", () => {
-    AnteriorTurno(turn)
-})
+  // BOTON RESET
+  const buttonReset = document.getElementById("reset");
+  if(buttonReset !== undefined && buttonReset !== null){
+    buttonReset.addEventListener("click", resetearTurno);
+  }
 
-buttonReset?.addEventListener("click", () => {
-    ResetTurno(turn)
-})
+  // BOTON ENVIAR
+  const buttonEnviar = document.getElementById("enviar");
+  if(buttonEnviar !== undefined && buttonEnviar !== null){
+    buttonEnviar.addEventListener("click", turnoManual);
+  }
+};
 
-buttonEnviar.addEventListener("click", () => {
-    TurnoManual(turn, turnoNumber)
-})
-
+document.addEventListener("DOMContentLoaded", () => {
+  eventos();
+  pintarTurno();
+});
