@@ -20,8 +20,12 @@ const resetearTurno = () => {
 };
 
 const turnoManual = () => {
-  let turnoNumber = document.getElementById("turno_number") as HTMLInputElement;
-  let finalTurn:number = parseInt(turnoNumber.value)
+  /* 
+    La otra forma para que no de error al recoger el .value es en el if añadir el instanceof de HTMLInputElement
+    No se si hay otra forma
+  */
+  let turnoNumber = document.getElementById("turno_number") as HTMLInputElement;  
+  let finalTurn: number = parseInt(turnoNumber.value)
 
   if(turnoNumber !== undefined && turnoNumber !== null ){
     if(finalTurn > 0){
