@@ -7,9 +7,31 @@
     <title>Vite + TS</title>
   </head>
   <body>
-    <div id="app">
-      <h1>TypeScript Sandbox</h1>
-    </div>
+    <header id="header-container">
+      <h1>Juego de las siete media</h1>
+    </header>
+    <main id="main-container">
+      <section class="main-section-container main-section-container-recibir">
+        <img 
+          src="./public/img/back.jpg"
+          alt="carta boca abajo" 
+          title="carta boca abajo"
+          id="carta-mostrar"/>
+      </section>
+      <section class="main-section-container main-section-container-menu">
+        <h2>Puntuacion: <span id="puntuacion-number">0</span></h2>
+        <button class="main-section-container-menu-btn" id="btn_plantarse">Plantarse</button>
+        <button class="main-section-container-menu-btn" id="btn_reiniciar">Reiniciar</button>
+        <button class="main-section-container-menu-btn" id="btn-whatIF">WHAT IF</button>
+        <p id="mensaje"></p>
+      </section>
+      <section class="main-section-container" id="main-section-container-pedir">
+        <img 
+          src="./public/img/back.jpg"
+          alt="carta boca abajo" 
+          title="carta boca abajo"/>
+      </section>
+    </main>
     <script type="module" src="/src/main.ts"></script>
   </body>
 </html>
