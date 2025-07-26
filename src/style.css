@@ -59,9 +59,11 @@ img{
 #btn_reiniciar{
   display: none;
 }
+
 #btn-whatIF{
   display: none;
 }
+
 .main-section-container-menu-btn{
   padding: 15px;
   border-radius: 5px;
@@ -78,4 +80,6 @@ img{
   width: 209px;
   height: 320px;
 }
-
+#main-section-container-pedir:hover{
+  box-shadow: 0px 6px 14px 2px rgba(230,210,210,0.75);
+}

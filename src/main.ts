@@ -133,7 +133,9 @@ const mensaje = (puntuacion: number) => {
     }
 
     btn_reiniciar_style.style.display = 'block'
-    btn_whatif_style.style.display = 'block'
+    if(puntuacion < 7.5){
+        btn_whatif_style.style.display = 'block'
+    }
 
 }
 
