@@ -3,7 +3,6 @@ import "./style.css";
 import { puntuacion } from "./modelo";
 import {
   pedirCarta,
-  btnPedirCarta,
   BTN_PEDIR_CARTA,
   BTN_PLANTARSE,
   BTN_REINICIAR,
@@ -12,17 +11,19 @@ import {
   bloquearBotones,
   mostrarBotones,
   checkPoints,
+  ocultarBotones,
 } from "./ui";
 
 // LO INTENTE PONER CON IF para quitar el AS
 const eventos = () => {
   BTN_PLANTARSE.disabled = true;
 
-  BTN_PEDIR_CARTA?.addEventListener("click", btnPedirCarta);
+  BTN_PEDIR_CARTA.addEventListener("click", pedirCarta);
 
-  BTN_PLANTARSE?.addEventListener("click", () => {
+  BTN_PLANTARSE.addEventListener("click", () => {
     checkPoints(puntuacion);
-    bloquearBotones(["PEDIR_CARTA", "PLANTARSE"]);
+    bloquearBotones(["PLANTARSE"]);
+    ocultarBotones(["PEDIR_CARTA"]);
     mostrarBotones(["WHAT_IF", "REINICIAR"]);
   });
 

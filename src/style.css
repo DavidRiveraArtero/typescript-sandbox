@@ -41,6 +41,7 @@ img{
 .main-section-container{
   display: flex;
   align-items: center;
+  height: 321px;
 }
 
 .main-section-container-recibir{
@@ -73,13 +74,13 @@ img{
 
 #main-section-container-pedir{
   grid-area: pedir-carta;
-  cursor: pointer;
-  justify-content: start;
-  display: flex;
-  flex-direction: column;
+  background-image: url("../public/img/back.jpg");
   width: 209px;
-  height: 320px;
+  background-repeat: no-repeat;
+  cursor: pointer;
 }
+
+
 #main-section-container-pedir:hover{
   box-shadow: 0px 6px 14px 2px rgba(230,210,210,0.75);
 }

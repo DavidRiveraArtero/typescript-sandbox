@@ -27,9 +27,24 @@ const randomNumber = (): number => {
   return Math.floor(Math.random() * 11);
 };
 
-export const isGameOver = (): boolean => {
-  if (puntuacion > 7.5) {
-    return true;
+export const isButton = (button: unknown): HTMLButtonElement => {
+  if (
+    button !== null &&
+    button !== undefined &&
+    button instanceof HTMLButtonElement
+  ) {
+    return button;
   }
-  return false;
+  throw new Error("NO ES UN ELEMENTO HTMLButton");
+};
+
+export const isHtmlButtonElement = (button: unknown): HTMLElement => {
+  if (
+    button !== null &&
+    button !== undefined &&
+    button instanceof HTMLElement
+  ) {
+    return button;
+  }
+  throw new Error("NO ES UN ELEMENTO HTMLElement");
 };

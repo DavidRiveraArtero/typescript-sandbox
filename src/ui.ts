@@ -5,54 +5,50 @@ import {
   setMensajeGame,
   setPuntuacion,
 } from "./modelo";
-import { generarCartaAleatoria, sumarPuntuacion, isGameOver } from "./motor";
+import {
+  generarCartaAleatoria,
+  sumarPuntuacion,
+  isButton,
+  isHtmlButtonElement,
+} from "./motor";
 
 // VARIABLES DE UI
-export const BTN_PEDIR_CARTA = document?.getElementById(
-  "main-section-container-pedir"
-) as HTMLButtonElement;
-export const BTN_PLANTARSE = document?.getElementById(
-  "btn_plantarse"
-) as HTMLButtonElement;
-export const BTN_REINICIAR = document?.getElementById(
-  "btn_reiniciar"
-) as HTMLButtonElement;
-export const BTN_WHATIF = document?.getElementById(
-  "btn-whatIF"
-) as HTMLButtonElement;
+export const BTN_PEDIR_CARTA = isHtmlButtonElement(
+  document.getElementById("main-section-container-pedir")
+);
+export const BTN_PLANTARSE = isButton(document.getElementById("btn_plantarse"));
+
+export const BTN_REINICIAR = isButton(document.getElementById("btn_reiniciar"));
+export const BTN_WHATIF = isButton(document.getElementById("btn-whatIF"));
 
 // FUNCIONES
-export const btnPedirCarta = (): void => {
-  if (puntuacion < 7.5) {
-    activarBotones(["PLANTARSE"]);
-    mostrarBotones(["REINICIAR"]);
-    pedirCarta();
-  }
-};
 
 export const pedirCarta = (): void => {
   let numCartaPedida: number = generarCartaAleatoria();
+  if (puntuacion === 0) {
+    activarBotones(["PLANTARSE"]);
+    mostrarBotones(["REINICIAR"]);
+  }
   let itsOk = mostrarCartaSalida(numCartaPedida);
   if (itsOk) {
     sumarPuntuacion(numCartaPedida);
   }
-
-  if (isGameOver()) {
-    checkPoints(puntuacion);
-
-    mostrarBotones(["REINICIAR"]);
-  }
-
-  printarNuevaPuntuacion(puntuacion);
   statusGame(puntuacion);
+  printarNuevaPuntuacion(puntuacion);
 };
 
 // POR CADA VEZ QUE EL JUGADOR PIDE UNA CARTA ESTE CHECKEA QUE SU PUNTUACIÓN NO SEA MAYOR A 7.5 O IGUAL
 const statusGame = (puntuacion: number): void => {
   if (puntuacion > 7.5) {
-    setMensajeGame("Has perdido");
+    setMensajeGame("GAME OVER");
+    bloquearBotones(["PLANTARSE"]);
+    ocultarBotones(["PEDIR_CARTA"]);
+    mostrarBotones(["REINICIAR"]);
   } else if (puntuacion === 7.5) {
-    setMensajeGame("Has Ganado");
+    bloquearBotones(["PLANTARSE"]);
+    ocultarBotones(["PEDIR_CARTA"]);
+    mostrarBotones(["REINICIAR"]);
+    setMensajeGame("¡Lo has clavado! ¡Enhorabuena!");
   }
   mensaje();
 };
@@ -64,8 +60,6 @@ export const checkPoints = (puntuacion: number): void => {
     setMensajeGame("Te ha entrado el canguelo eh?");
   } else if (puntuacion >= 6 && puntuacion <= 7) {
     setMensajeGame("Casi casi...");
-  } else if (puntuacion === 7.5) {
-    setMensajeGame("¡Lo has clavado! ¡Enhorabuena!");
   }
   mensaje();
 };
@@ -115,9 +109,6 @@ const printarNuevaPuntuacion = (puntuacion: number) => {
 export const bloquearBotones = (buttons: string[]) => {
   for (var x: number = 0; x < buttons.length; x++) {
     switch (buttons[x]) {
-      case "PEDIR_CARTA":
-        BTN_PEDIR_CARTA.disabled = true;
-        break;
       case "REINICIAR":
         BTN_REINICIAR.disabled = true;
         break;
@@ -136,9 +127,6 @@ export const bloquearBotones = (buttons: string[]) => {
 export const activarBotones = (buttons: string[]) => {
   for (var x: number = 0; x < buttons.length; x++) {
     switch (buttons[x]) {
-      case "PEDIR_CARTA":
-        BTN_PEDIR_CARTA.disabled = false;
-        break;
       case "REINICIAR":
         BTN_REINICIAR.disabled = false;
         break;
@@ -157,8 +145,15 @@ export const activarBotones = (buttons: string[]) => {
 export const mostrarBotones = (name_button: string[]) => {
   for (var x = 0; x < name_button.length; x++) {
     switch (name_button[x]) {
+      case "PEDIR_CARTA":
+        BTN_PEDIR_CARTA.style.display = "block";
+        BTN_PEDIR_CARTA.style.cursor = "pointer";
+        BTN_PEDIR_CARTA.style.opacity = "1";
+        BTN_PEDIR_CARTA.style.pointerEvents = "auto";
+        break;
       case "REINICIAR":
         BTN_REINICIAR.style.display = "block";
+        break;
       case "PLANTARSE":
         BTN_PLANTARSE.style.display = "block";
         break;
@@ -174,6 +169,10 @@ export const mostrarBotones = (name_button: string[]) => {
 export const ocultarBotones = (name_button: string[]) => {
   for (var x = 0; x < name_button.length; x++) {
     switch (name_button[x]) {
+      case "PEDIR_CARTA":
+        BTN_PEDIR_CARTA.style.pointerEvents = "none";
+        BTN_PEDIR_CARTA.style.opacity = "0.5";
+        break;
       case "REINICIAR":
         BTN_REINICIAR.style.display = "none";
         break;
@@ -193,9 +192,10 @@ export const ocultarBotones = (name_button: string[]) => {
 export const startGame = () => {
   setMensajeGame("");
   setPuntuacion(0);
-  activarBotones(["PEDIR_CARTA", "REINICIAR", "WHAT_IF"]);
+  activarBotones(["REINICIAR", "WHAT_IF"]);
   bloquearBotones(["PLANTARSE"]);
   ocultarBotones(["REINICIAR", "WHAT_IF"]);
+  mostrarBotones(["PEDIR_CARTA"]);
   mensaje();
   printarNuevaPuntuacion(0);
   mostrarCartaSalida(0);
