@@ -9,11 +9,11 @@ import {
   generarCartaAleatoria,
   sumarPuntuacion,
   isButton,
-  isHtmlButtonElement,
+  isHtmlElement,
 } from "./motor";
 
 // VARIABLES DE UI
-export const BTN_PEDIR_CARTA = isHtmlButtonElement(
+export const BTN_PEDIR_CARTA = isHtmlElement(
   document.getElementById("main-section-container-pedir")
 );
 export const BTN_PLANTARSE = isButton(document.getElementById("btn_plantarse"));
@@ -95,14 +95,11 @@ export const mensaje = () => {
 
 // PRINTAR LA NUEVA PUNTUACION
 const printarNuevaPuntuacion = (puntuacion: number) => {
-  let puntuacionNumber = document.getElementById("puntuacion-number");
-  if (
-    puntuacionNumber !== null &&
-    puntuacionNumber !== undefined &&
-    puntuacionNumber instanceof HTMLElement
-  ) {
-    puntuacionNumber.innerHTML = puntuacion.toString();
-  }
+  let puntuacionNumber = isHtmlElement(
+    document.getElementById("puntuacion-number")
+  );
+
+  puntuacionNumber.innerHTML = puntuacion.toString();
 };
 
 // INTERACCION CON LOS BOTONES

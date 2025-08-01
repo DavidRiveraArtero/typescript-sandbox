@@ -38,7 +38,7 @@ export const isButton = (button: unknown): HTMLButtonElement => {
   throw new Error("NO ES UN ELEMENTO HTMLButton");
 };
 
-export const isHtmlButtonElement = (button: unknown): HTMLElement => {
+export const isHtmlElement = (button: unknown): HTMLElement => {
   if (
     button !== null &&
     button !== undefined &&
