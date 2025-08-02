@@ -89,7 +89,7 @@ const errorMensaje = (): void => {
 
 // PRINTAR EL NUEVO MENSAJE AL TERMINAR O CUANDO NOS PLANTAMOS
 export const mensaje = () => {
-  let mensaje = document.getElementById("mensaje") as HTMLElement;
+  let mensaje = isHtmlElement(document.getElementById("mensaje"));
   mensaje.innerHTML = mensajeGame;
 };
 
