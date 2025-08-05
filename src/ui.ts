@@ -31,7 +31,7 @@ export const pedirCarta = (): void => {
   }
   let itsOk = mostrarCartaSalida(numCartaPedida);
   if (itsOk) {
-    sumarPuntuacion(numCartaPedida);
+    setPuntuacion(sumarPuntuacion(numCartaPedida));
   }
   statusGame(puntuacion);
   printarNuevaPuntuacion(puntuacion);

@@ -1,13 +1,13 @@
-import { puntuacion, cartas, setPuntuacion } from "./modelo";
+import { puntuacion, cartas } from "./modelo";
 
 export const generarCartaAleatoria = (): number => {
-  let numeroAleatorio: number = randomNumber();
-  numeroAleatorio = checkNumberCard(numeroAleatorio);
-  return numeroAleatorio;
+  const numeroAleatorio: number = randomNumber();
+  const numeroFinal = checkNumberCard(numeroAleatorio);
+  return numeroFinal;
 };
 
 // UNA VEZ TENGAMOS LA CARTA SI ESTA ES SUPERIOR A 7 LE SUMAMOS 2 PUNTOS
-const checkNumberCard = (numeroAleatorio: number): number => {
+export const checkNumberCard = (numeroAleatorio: number): number => {
   if (numeroAleatorio > 7) {
     numeroAleatorio += 2;
   } else if (numeroAleatorio == 0) {
@@ -18,12 +18,12 @@ const checkNumberCard = (numeroAleatorio: number): number => {
 };
 
 //
-export const sumarPuntuacion = (puntuacion_carta: number): void => {
-  setPuntuacion(puntuacion + cartas[puntuacion_carta].valor);
+export const sumarPuntuacion = (puntuacion_carta: number): number => {
+  return puntuacion + cartas[puntuacion_carta].valor;
 };
 
 // GENERAMOS UN NUMERO ALEATORIO
-const randomNumber = (): number => {
+export const randomNumber = (): number => {
   return Math.floor(Math.random() * 11);
 };
 

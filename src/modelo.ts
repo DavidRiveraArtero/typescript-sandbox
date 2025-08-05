@@ -1,5 +1,5 @@
-export let puntuacion = 0;
-export let mensajeGame = "";
+export let puntuacion: number = 0;
+export let mensajeGame: string = "";
 
 interface values {
   src: string;
