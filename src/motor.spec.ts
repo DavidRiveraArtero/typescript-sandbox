@@ -9,7 +9,7 @@ describe("activarProtocoloUrgencia", () => {
     // ARRANGE
     const valorEsperado: boolean = true;
     // ACT
-    const resultado = activarProtocoloUrgencia(pacientes[4]);
+    const resultado = activarProtocoloUrgencia(pacientes);
 
     // ASSERT
     expect(resultado).toBe(valorEsperado);

@@ -19,11 +19,7 @@ export const mainPrograma = () => {
   );
 
   // EJERCICIO 2
-  for (var x: number = 0; x < pacientes.length; x++) {
-    activarProtocoloUrgencia(pacientes[x])
-      ? console.log(pacientes[x].nombre, "Se activa protocolo de urgencia")
-      : console.log(pacientes[x].nombre, "Todo estable");
-  }
+  console.log(activarProtocoloUrgencia(pacientes));
 
   // EJERCICIO 3
   console.log(reasignaPacientesAMedicoFamilia(pacientes));
@@ -48,12 +44,10 @@ export const mainPrograma = () => {
 const obtenPacientesAsignadosAPediatria = (
   pacientes: Pacientes[]
 ): Pacientes[] => {
-  let listaPedriatia: Pacientes[] = [];
-  for (var x: number = 0; x < pacientes.length; x++) {
-    if (pacientes[x].especialidad === "Pediatra") {
-      listaPedriatia = [pacientes[x], ...listaPedriatia];
-    }
-  }
+  let listaPedriatia: Pacientes[] = pacientes.filter((paciente: Pacientes) => {
+    return paciente.especialidad === "Pediatra";
+  });
+
   return listaPedriatia;
 };
 
@@ -65,41 +59,44 @@ const obtenPacientesAsignadosAPediatria = (
 export const obtenPacientesAsignadosAPediatriaYMenorDeDiezAnios = (
   pacientes: Pacientes[]
 ): Pacientes[] => {
-  const listaPedriatia: Pacientes[] =
+  const listaPedriatias: Pacientes[] =
     obtenPacientesAsignadosAPediatria(pacientes);
-  let listaPedriatiaMenores: Pacientes[] = [];
-  for (var x: number = 0; x < listaPedriatia.length; x++) {
-    if (listaPedriatia[x].edad < 10) {
-      listaPedriatiaMenores = [listaPedriatia[x], ...listaPedriatiaMenores];
+
+  let listaPedriatiaMenores: Pacientes[] = listaPedriatias.filter(
+    (listaPedriatia) => {
+      return listaPedriatia.edad < 10;
     }
-  }
+  );
+
   return listaPedriatiaMenores;
 };
 
 // EJERCICIO 2 FUNCIONES
-export const activarProtocoloUrgencia = (pacientes: Pacientes): boolean => {
-  if (pacientes.frecuenciaCardiaca > 100 && pacientes.temperatura > 39) {
-    return true;
-  }
+export const activarProtocoloUrgencia = (pacientes: Pacientes[]): boolean => {
+  return pacientes.some((paciente): boolean => {
+    if (paciente.frecuenciaCardiaca > 100 && paciente.temperatura > 39) {
+      return true;
+    }
 
-  return false;
+    return false;
+  });
 };
 
 // EJERCICIO 3 FUNCIONES
 const reasignaPacientesAMedicoFamilia = (
   pacientes: Pacientes[]
 ): Pacientes[] => {
-  const listaPedriatia: Pacientes[] =
-    obtenPacientesAsignadosAPediatria(pacientes);
-
-  for (var x = 0; x < listaPedriatia.length; x++) {
-    listaPedriatia[x] = {
-      ...listaPedriatia[x],
-      especialidad: "Medico de familia",
-    };
-  }
-
-  return listaPedriatia;
+  let nuevaLista: Pacientes[] = pacientes.map((lista: Pacientes): Pacientes => {
+    return lista.especialidad === "Pediatra"
+      ? {
+          ...lista,
+          especialidad: "Medico de familia",
+        }
+      : {
+          ...lista,
+        };
+  });
+  return nuevaLista;
 };
 
 // EJERCICIO 4 FUNCIONES
@@ -107,18 +104,15 @@ const reasignaPacientesAMedicoFamilia = (
 const HayPacientesDePediatria = (pacientes: Pacientes[]): boolean => {
   const listaPedriatia: Pacientes[] =
     obtenPacientesAsignadosAPediatria(pacientes);
-  if (listaPedriatia.length === 0) {
-    return true;
-  }
-  return false;
+  return listaPedriatia.length === 0 ? true : false;
 };
 
 // EJERCICIO 5 FUNCIONES
 const cuentaPacientesPorEspecialidad = (
   pacientes: Pacientes[]
 ): NumeroPacientesPorEspecialidad => {
-  for (var x = 0; x < pacientes.length; x++) {
-    switch (pacientes[x].especialidad) {
+  pacientes.forEach((paciente) => {
+    switch (paciente.especialidad) {
       case "Cardiólogo":
         numeroPacientesPorEspecialidad.cardiologia++;
         break;
@@ -129,6 +123,7 @@ const cuentaPacientesPorEspecialidad = (
         numeroPacientesPorEspecialidad.pediatria++;
         break;
     }
-  }
+  });
+
   return numeroPacientesPorEspecialidad;
 };

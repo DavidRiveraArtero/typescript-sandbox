@@ -31,7 +31,7 @@ export const pacientes: Pacientes[] = [
     sexo: "Male",
     temperatura: 36.8,
     frecuenciaCardiaca: 80,
-    especialidad: "Medico de familia",
+    especialidad: "Cardiólogo",
     edad: 44,
   },
   {
@@ -41,7 +41,7 @@ export const pacientes: Pacientes[] = [
     sexo: "Female",
     temperatura: 36.8,
     frecuenciaCardiaca: 70,
-    especialidad: "Medico de familia",
+    especialidad: "Cardiólogo",
     edad: 43,
   },
   {
