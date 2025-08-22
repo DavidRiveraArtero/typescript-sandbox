@@ -116,21 +116,28 @@ export const calcularTotalTipoIva = (
 ): TotalPorTipoIva[] => {
   const totalPorIva: TotalPorTipoIva[] = [];
   const listaProv: TipoIva[] = [];
-  lineaTicket.forEach((ticket) => {
-    if (!listaProv.includes(ticket.tipoIva)) {
-      const listaFiltrada = lineaTicket.filter(
-        (iva) => iva.tipoIva === ticket.tipoIva
-      );
+
+  const tiposDeIva: TipoIva[] = lineaTicket.map((ticket): TipoIva => {
+    return ticket.tipoIva;
+  });
+
+  tiposDeIva.forEach((tipo) => {
+    if (!listaProv.includes(tipo)) {
+      const listaFiltrada = lineaTicket.filter((iva) => {
+        return iva.tipoIva === tipo;
+      });
       let total: number = listaFiltrada.reduce(
         (acc, precio) => acc + precio.precioConIva,
         0
       );
-      listaProv.push(ticket.tipoIva);
+
       totalPorIva.push({
-        tipoIva: ticket.tipoIva,
+        tipoIva: tipo,
         cuantia: Number(total.toFixed(2)),
       });
+      listaProv.push(tipo);
     }
   });
+
   return totalPorIva;
 };
