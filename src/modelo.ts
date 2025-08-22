@@ -17,7 +17,6 @@ export type TipoIva =
   | "superreducidoC"
   | "sinIva";
 
-// ESTA INTERFAZ LA USAREMOS PARA CREAR EL TICKET DE COMPRA
 export interface Producto {
   nombre: string;
   precio: number;
@@ -29,7 +28,6 @@ export interface LineaTicket {
   cantidad: number;
 }
 
-// Por cada producto queremos el nombre, la cantidad, el precio sin IVA, el tipo de IVA y el precio con IVA.
 export interface ResultadoLineaTicket {
   nombre: string;
   cantidad: number;
