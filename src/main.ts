@@ -27,7 +27,7 @@ export const getSucursal = async () => {
       if (sucursal.bankIdentifier) {
         console.log(sucursal);
         console.log(
-          `BANCO: ${codeSucursal[sucursal.bankIdentifier]} \nCódigo sucursal: ${
+          `Banco: ${codeSucursal[sucursal.bankIdentifier]} \nCódigo sucursal: ${
             sucursal.bankIdentifier
           }\nNumero de cuenta : ${sucursal.accountNumber}`
         );
