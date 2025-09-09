@@ -25,7 +25,12 @@ export const getSucursal = async () => {
     if (validarIban(list[x])) {
       const sucursal: ExtractIBANResult = extractIBAN(list[x]);
       if (sucursal.bankIdentifier) {
-        console.log(codeSucursal[sucursal.bankIdentifier]);
+        console.log(sucursal);
+        console.log(
+          `BANCO: ${codeSucursal[sucursal.bankIdentifier]} \nCódigo sucursal: ${
+            sucursal.bankIdentifier
+          }\nNumero de cuenta : ${sucursal.accountNumber}`
+        );
       }
     }
   }
