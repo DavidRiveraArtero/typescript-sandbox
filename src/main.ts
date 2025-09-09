@@ -5,6 +5,8 @@ import {
   ExtractIBANResult,
 } from "./validacion/IBAN/validacion_IBAN";
 import { codeSucursal } from "./validacion/IBAN/sucursales.model";
+import { getImagen } from "./ui";
+
 export const getSucursal = async () => {
   const list = [
     "ES9121000418450200051332", // Caixabank
@@ -29,4 +31,11 @@ export const getSucursal = async () => {
   }
 };
 
-getSucursal();
+addEventListener("DOMContentLoaded", () => {
+  const getButton = document.getElementById("btn-buscar-img");
+  getSucursal();
+  getButton?.addEventListener("click", (event) => {
+    event.preventDefault();
+    getImagen();
+  });
+});
